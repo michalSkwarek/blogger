@@ -15,7 +15,7 @@ public class BloggerApplication {
 
     @GetMapping(value = {"/", "hello"})
     public String sayHello() {
-        return "Hello you";
+        return "Hello you.";
     }
 
 }
