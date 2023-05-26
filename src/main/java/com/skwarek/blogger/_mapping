@@ -1,0 +1,71 @@
+--------------------------------------------------
+{
+    "id": 1,
+    "email": "firstEmail",
+    "password": "firstPassword",
+    "posts": [
+        {
+            "id": 1,
+            "name": "Content for 1 post",
+	    "comments": [
+        	{
+            		"id": 1,
+            		"name": "Content for 1 post"
+        	},
+        	{
+            		"id": 2,
+            		"name": "Content for 2 post"
+        	}
+    	    ]
+        },
+        {
+            "id": 2,
+            "name": "Content for 2 post"
+        }
+    ]
+}
+--------------------------------------------------
+Hello
+GET     / /hello
+--------------------------------------------------
+{
+    "email": "newEmail",
+    "password": "newPassword"
+}
+{
+    "email": "updatedEmail",
+    "password": "updatedPassword"
+}
+Users
+GET     /users
+GET     /users/{id}                 NotFoundUser
+POST    /users/create                               DuplicateUser
+PUT     /users/{id}                 NotFoundUser    DuplicateUser
+DELETE  /users/{id}                 NotFoundUser
+--------------------------------------------------
+{
+    "content": "new post content"
+}
+{
+    "content": "updated post content"
+}
+Posts
+GET	    /posts/{id}                 NotFoundPost
+POST	/users/{id}/posts/create                    [NotFoundUser]
+PUT	    /posts/{id}                 NotFoundPost
+DELETE	/posts/{id}                 NotFoundPost
+GET	    /users/{id}/posts                           [NotFoundUser]
+--------------------------------------------------
+{
+    "content": "new comment content"
+}
+{
+    "content": "updated comment content"
+}
+Comments
+GET	    /comments/{id}                  NotFoundComment
+POST	/posts/{id}/comments/create                     [NotFoundPost]
+PUT	    /comments/{id}                  NotFoundComment
+DELETE	/comments/{id}                  NotFoundComment
+GET	    /posts/{id}/comments                            [NotFoundPost]
+--------------------------------------------------
