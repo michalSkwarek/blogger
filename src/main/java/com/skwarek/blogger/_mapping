@@ -1,26 +1,45 @@
 --------------------------------------------------
 {
     "id": 1,
-    "email": "firstEmail",
-    "password": "firstPassword",
+    "email": "a1@gmail.com",
+    "password": "111",
     "posts": [
         {
             "id": 1,
-            "name": "Content for 1 post",
-	    "comments": [
-        	{
-            		"id": 1,
-            		"name": "Content for 1 post"
-        	},
-        	{
-            		"id": 2,
-            		"name": "Content for 2 post"
-        	}
-    	    ]
+            "content": "post no 1 to user1",
+            "comments": [
+                {
+                    "id": 1,
+                    "content": "comment no 1 to post1"
+                },
+                {
+                    "id": 2,
+                    "content": "comment no 2 to post1"
+                },
+                {
+                    "id": 3,
+                    "content": "comment no 3 to post1"
+                }
+            ]
         },
         {
             "id": 2,
-            "name": "Content for 2 post"
+            "content": "post no 2 to user1",
+            "comments": [
+                {
+                    "id": 4,
+                    "content": "comment no 1 to post2"
+                },
+                {
+                    "id": 5,
+                    "content": "comment no 2 to post2"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "content": "post no 3 to user1",
+            "comments": []
         }
     ]
 }
