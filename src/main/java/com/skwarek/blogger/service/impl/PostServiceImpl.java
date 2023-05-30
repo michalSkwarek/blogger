@@ -2,6 +2,7 @@ package com.skwarek.blogger.service.impl;
 
 import com.skwarek.blogger.domain.Comment;
 import com.skwarek.blogger.domain.Post;
+import com.skwarek.blogger.dto.PostRequest;
 import com.skwarek.blogger.exception.NotFoundPostException;
 import com.skwarek.blogger.repository.CommentRepository;
 import com.skwarek.blogger.repository.PostRepository;
@@ -33,7 +34,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post create(Post postRequest) {
+    public Post create(PostRequest postRequest) {
         Post newPost = Post.builder()
                 .content(postRequest.getContent())
                 .build();
@@ -42,7 +43,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post update(Long postId, Post postRequest) {
+    public Post update(Long postId, PostRequest postRequest) {
         Post oldPost = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundPostException("Not found post with id: " + postId));
 

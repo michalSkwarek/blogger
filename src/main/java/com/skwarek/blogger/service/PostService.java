@@ -1,6 +1,7 @@
 package com.skwarek.blogger.service;
 
 import com.skwarek.blogger.domain.Post;
+import com.skwarek.blogger.dto.PostRequest;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface PostService {
 
     Post findById(Long postId);
 
-    Post create(Post postRequest);
+    Post create(PostRequest postRequest);
 
-    Post update(Long postId, Post postRequest);
+    Post update(Long postId, PostRequest postRequest);
 
     void deleteById(Long postId);
 

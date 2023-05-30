@@ -1,6 +1,7 @@
 package com.skwarek.blogger.service;
 
 import com.skwarek.blogger.domain.User;
+import com.skwarek.blogger.dto.UserRequest;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface UserService {
 
     User findById(Long userId);
 
-    User create(User userRequest);
+    User create(UserRequest userRequest);
 
-    User update(Long userId, User userRequest);
+    User update(Long userId, UserRequest userRequest);
 
     void deleteById(Long userId);
 

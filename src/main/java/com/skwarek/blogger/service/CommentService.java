@@ -1,6 +1,7 @@
 package com.skwarek.blogger.service;
 
 import com.skwarek.blogger.domain.Comment;
+import com.skwarek.blogger.dto.CommentRequest;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface CommentService {
 
     Comment findById(Long commentId);
 
-    Comment create(Comment commentRequest);
+    Comment create(CommentRequest commentRequest);
 
-    Comment update(Long commentId, Comment commentRequest);
+    Comment update(Long commentId, CommentRequest commentRequest);
 
     void deleteById(Long commentId);
 

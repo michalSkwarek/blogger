@@ -1,6 +1,7 @@
 package com.skwarek.blogger.service.impl;
 
 import com.skwarek.blogger.domain.Comment;
+import com.skwarek.blogger.dto.CommentRequest;
 import com.skwarek.blogger.exception.NotFoundCommentException;
 import com.skwarek.blogger.repository.CommentRepository;
 import com.skwarek.blogger.service.CommentService;
@@ -29,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment create(Comment commentRequest) {
+    public Comment create(CommentRequest commentRequest) {
         Comment newComment = Comment.builder()
                 .content(commentRequest.getContent())
                 .build();
@@ -38,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment update(Long commentId, Comment commentRequest) {
+    public Comment update(Long commentId, CommentRequest commentRequest) {
         Comment oldComment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundCommentException("Not found comment with id: " + commentId));
 

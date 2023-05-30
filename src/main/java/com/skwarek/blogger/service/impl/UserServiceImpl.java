@@ -3,6 +3,7 @@ package com.skwarek.blogger.service.impl;
 import com.skwarek.blogger.domain.Comment;
 import com.skwarek.blogger.domain.Post;
 import com.skwarek.blogger.domain.User;
+import com.skwarek.blogger.dto.UserRequest;
 import com.skwarek.blogger.exception.DuplicateUserException;
 import com.skwarek.blogger.exception.NotFoundUserException;
 import com.skwarek.blogger.repository.CommentRepository;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User userRequest) {
+    public User create(UserRequest userRequest) {
         boolean isUserExist = userRepository.existsByEmail(userRequest.getEmail());
 
         if (!isUserExist) {
@@ -54,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(Long userId, User userRequest) {
+    public User update(Long userId, UserRequest userRequest) {
         User oldUser = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundUserException("Not found user with id: " + userId));
 
