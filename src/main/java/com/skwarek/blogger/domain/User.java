@@ -37,6 +37,8 @@ public class User {
     }
 
     public void removePost(Post post) {
+        List<Comment> comments = new ArrayList<>(post.getComments());
+        comments.forEach(post::removeComment);
         this.posts.remove(post);
         post.setUser(null);
     }

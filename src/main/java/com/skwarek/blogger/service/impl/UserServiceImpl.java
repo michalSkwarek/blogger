@@ -1,13 +1,10 @@
 package com.skwarek.blogger.service.impl;
 
-import com.skwarek.blogger.domain.Comment;
 import com.skwarek.blogger.domain.Post;
 import com.skwarek.blogger.domain.User;
 import com.skwarek.blogger.dto.UserRequest;
 import com.skwarek.blogger.exception.DuplicateUserException;
 import com.skwarek.blogger.exception.NotFoundUserException;
-import com.skwarek.blogger.repository.CommentRepository;
-import com.skwarek.blogger.repository.PostRepository;
 import com.skwarek.blogger.repository.UserRepository;
 import com.skwarek.blogger.service.UserService;
 import org.springframework.stereotype.Service;
@@ -19,13 +16,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PostRepository postRepository;
-    private final CommentRepository commentRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, CommentRepository commentRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.postRepository = postRepository;
-        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -78,10 +71,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotFoundUserException("Not found user with id: " + userId));
 
         List<Post> posts = new ArrayList<>(userDb.getPosts());
-        posts.forEach(p -> {
-            List<Comment> comments = new ArrayList<>(p.getComments());
-            comments.forEach(c -> posts.remove(c));
-        });
+        posts.forEach(userDb::removePost);
 
         userRepository.deleteById(userDb.getId());
     }
