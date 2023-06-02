@@ -44,8 +44,11 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody UserRequest userRequest) {
         User createdUser = userService.create(userRequest);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/users")
-                .path("/{userId}").buildAndExpand(createdUser.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .replacePath("/api/users")
+                .path("/{userId}")
+                .buildAndExpand(createdUser.getId())
+                .toUri();
 
         return ResponseEntity.created(location).body(createdUser);
     }

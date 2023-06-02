@@ -22,9 +22,9 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping(value = "/comments")
-    public ResponseEntity<List<Comment>> getAllComments() {
-        List<Comment> comments = commentService.findAll();
+    @GetMapping(value = "/posts/{postId}/comments")
+    public ResponseEntity<List<Comment>> getAllCommentsByPostId(@PathVariable("postId") Long postId) {
+        List<Comment> comments = commentService.findAllByPostId(postId);
 
         if (!comments.isEmpty()) {
             return ResponseEntity.ok(comments);
@@ -40,12 +40,16 @@ public class CommentController {
         return ResponseEntity.ok(comment);
     }
 
-    @PostMapping(value = "/comments/create")
-    public ResponseEntity<Comment> createComment(@RequestBody CommentRequest commentRequest) {
-        Comment createdComment = commentService.create(commentRequest);
+    @PostMapping(value = "/posts/{postId}/comments/create")
+    public ResponseEntity<Comment> createComment2Post(@PathVariable("postId") Long postId,
+                                                      @RequestBody CommentRequest commentRequest) {
+        Comment createdComment = commentService.create2Post(postId, commentRequest);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/comments")
-                .path("/{commentId}").buildAndExpand(createdComment.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .replacePath("/api/comments")
+                .path("/{commentId}")
+                .buildAndExpand(createdComment.getId())
+                .toUri();
 
         return ResponseEntity.created(location).body(createdComment);
     }

@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface PostService {
 
-    List<Post> findAll();
+    List<Post> findAllByUserId(Long userId);
 
     Post findById(Long postId);
 
-    Post create(PostRequest postRequest);
+    Post create2User(Long userId, PostRequest postRequest);
 
     Post update(Long postId, PostRequest postRequest);
 

@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface CommentService {
 
-    List<Comment> findAll();
+    List<Comment> findAllByPostId(Long postId);
 
     Comment findById(Long commentId);
 
-    Comment create(CommentRequest commentRequest);
+    Comment create2Post(Long postId, CommentRequest commentRequest);
 
     Comment update(Long commentId, CommentRequest commentRequest);
 

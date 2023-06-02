@@ -12,6 +12,7 @@ import com.skwarek.blogger.repository.UserRepository;
 import com.skwarek.blogger.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -76,11 +77,10 @@ public class UserServiceImpl implements UserService {
         User userDb = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundUserException("Not found user with id: " + userId));
 
-        List<Post> postsDb = postRepository.findByUserId(userId);
-        postsDb.forEach(p -> {
-            List<Comment> commentsDb = commentRepository.findByPostId(p.getId());
-            commentsDb.forEach(c -> commentRepository.deleteById(c.getId()));
-            postRepository.deleteById(p.getId());
+        List<Post> posts = new ArrayList<>(userDb.getPosts());
+        posts.forEach(p -> {
+            List<Comment> comments = new ArrayList<>(p.getComments());
+            comments.forEach(c -> posts.remove(c));
         });
 
         userRepository.deleteById(userDb.getId());

@@ -69,11 +69,11 @@ DELETE  /users/{id}                 NotFoundUser
     "content": "updated post content"
 }
 Posts
+GET	    /users/{id}/posts                           [NotFoundUser]
 GET	    /posts/{id}                 NotFoundPost
 POST	/users/{id}/posts/create                    [NotFoundUser]
 PUT	    /posts/{id}                 NotFoundPost
 DELETE	/posts/{id}                 NotFoundPost
-GET	    /users/{id}/posts                           [NotFoundUser]
 --------------------------------------------------
 {
     "content": "new comment content"
@@ -82,9 +82,9 @@ GET	    /users/{id}/posts                           [NotFoundUser]
     "content": "updated comment content"
 }
 Comments
+GET	    /posts/{id}/comments                            [NotFoundPost]
 GET	    /comments/{id}                  NotFoundComment
 POST	/posts/{id}/comments/create                     [NotFoundPost]
 PUT	    /comments/{id}                  NotFoundComment
 DELETE	/comments/{id}                  NotFoundComment
-GET	    /posts/{id}/comments                            [NotFoundPost]
 --------------------------------------------------

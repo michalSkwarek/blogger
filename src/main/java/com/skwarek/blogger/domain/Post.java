@@ -30,7 +30,18 @@ public class Post {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @Builder.Default
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+        comment.setPost(this);
+    }
+
+    public void removeComment(Comment comment) {
+        this.comments.remove(comment);
+        comment.setPost(null);
+    }
 
 }

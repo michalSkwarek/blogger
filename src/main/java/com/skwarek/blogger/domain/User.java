@@ -27,7 +27,18 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @Builder.Default
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
+
+    public void addPost(Post post) {
+        this.posts.add(post);
+        post.setUser(this);
+    }
+
+    public void removePost(Post post) {
+        this.posts.remove(post);
+        post.setUser(null);
+    }
 
 }

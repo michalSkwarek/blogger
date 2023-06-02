@@ -22,9 +22,9 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping(value = "/posts")
-    public ResponseEntity<List<Post>> getAllPosts() {
-        List<Post> posts = postService.findAll();
+    @GetMapping(value = "/users/{userId}/posts")
+    public ResponseEntity<List<Post>> getAllPostsByUserId(@PathVariable("userId") Long userId) {
+        List<Post> posts = postService.findAllByUserId(userId);
 
         if (!posts.isEmpty()) {
             return ResponseEntity.ok(posts);
@@ -40,12 +40,16 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
-    @PostMapping(value = "/posts/create")
-    public ResponseEntity<Post> createPost(@RequestBody PostRequest postRequest) {
-        Post createdPost = postService.create(postRequest);
+    @PostMapping(value = "/users/{userId}/posts/create")
+    public ResponseEntity<Post> createPost2User(@PathVariable("userId") Long userId,
+                                                @RequestBody PostRequest postRequest) {
+        Post createdPost = postService.create2User(userId, postRequest);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/posts")
-                .path("/{postId}").buildAndExpand(createdPost.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .replacePath("/api/posts")
+                .path("/{postId}")
+                .buildAndExpand(createdPost.getId())
+                .toUri();
 
         return ResponseEntity.created(location).body(createdPost);
     }
