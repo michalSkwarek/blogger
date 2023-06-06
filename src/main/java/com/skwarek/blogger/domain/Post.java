@@ -11,8 +11,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(exclude = {"account"})
+@ToString(exclude = {"account"})
 @Builder
 @Entity
 @Table(name = "post")
@@ -26,9 +26,9 @@ public class Post {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "account_id")
     @JsonIgnore
-    private User user;
+    private Account account;
 
     @Builder.Default
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

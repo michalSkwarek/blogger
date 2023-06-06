@@ -6,7 +6,7 @@
     "posts": [
         {
             "id": 1,
-            "content": "post no 1 to user1",
+            "content": "post no 1 to account1",
             "comments": [
                 {
                     "id": 1,
@@ -24,7 +24,7 @@
         },
         {
             "id": 2,
-            "content": "post no 2 to user1",
+            "content": "post no 2 to account1",
             "comments": [
                 {
                     "id": 4,
@@ -38,7 +38,7 @@
         },
         {
             "id": 3,
-            "content": "post no 3 to user1",
+            "content": "post no 3 to account1",
             "comments": []
         }
     ]
@@ -55,12 +55,12 @@ GET     / /hello
     "email": "updatedEmail",
     "password": "updatedPassword"
 }
-Users
-GET     /users
-GET     /users/{id}                 NotFoundUser
-POST    /users/create                               DuplicateUser
-PUT     /users/{id}                 NotFoundUser    DuplicateUser
-DELETE  /users/{id}                 NotFoundUser
+Accounts
+GET     /accounts
+GET     /accounts/{id}                 NotFoundAccount
+POST    /accounts/create                                DuplicateAccount
+PUT     /accounts/{id}                 NotFoundAccount  DuplicateAccount
+DELETE  /accounts/{id}                 NotFoundAccount
 --------------------------------------------------
 {
     "content": "new post content"
@@ -69,9 +69,9 @@ DELETE  /users/{id}                 NotFoundUser
     "content": "updated post content"
 }
 Posts
-GET	    /users/{id}/posts                           [NotFoundUser]
+GET	    /accounts/{id}/posts                           [NotFoundAccount]
 GET	    /posts/{id}                 NotFoundPost
-POST	/users/{id}/posts/create                    [NotFoundUser]
+POST	/accounts/{id}/posts/create                    [NotFoundAccount]
 PUT	    /posts/{id}                 NotFoundPost
 DELETE	/posts/{id}                 NotFoundPost
 --------------------------------------------------

@@ -1,13 +1,13 @@
 package com.skwarek.blogger.service.impl;
 
+import com.skwarek.blogger.domain.Account;
 import com.skwarek.blogger.domain.Comment;
 import com.skwarek.blogger.domain.Post;
-import com.skwarek.blogger.domain.User;
 import com.skwarek.blogger.dto.PostRequest;
 import com.skwarek.blogger.exception.NotFoundPostException;
 import com.skwarek.blogger.repository.PostRepository;
 import com.skwarek.blogger.service.PostService;
-import com.skwarek.blogger.service.UserService;
+import com.skwarek.blogger.service.AccountService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,18 +17,18 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
-    private final UserService userService;
+    private final AccountService accountService;
 
-    public PostServiceImpl(PostRepository postRepository, UserService userService) {
+    public PostServiceImpl(PostRepository postRepository, AccountService accountService) {
         this.postRepository = postRepository;
-        this.userService = userService;
+        this.accountService = accountService;
     }
 
     @Override
     public List<Post> findAllByUserId(Long userId) {
-        User userDb = userService.findById(userId);
+        Account accountDb = accountService.findById(userId);
 
-        return postRepository.findByUserId(userDb.getId());
+        return postRepository.findByAccountId(accountDb.getId());
     }
 
     @Override
@@ -39,13 +39,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post create2User(Long userId, PostRequest postRequest) {
-        User userDb = userService.findById(userId);
+        Account accountDb = accountService.findById(userId);
 
         Post newPost = Post.builder()
                 .content(postRequest.getContent())
                 .build();
 
-        userDb.addPost(newPost);
+        accountDb.addPost(newPost);
 
         return postRepository.save(newPost);
     }

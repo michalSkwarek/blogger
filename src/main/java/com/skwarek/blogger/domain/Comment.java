@@ -8,8 +8,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(exclude = {"post"})
+@ToString(exclude = {"post"})
 @Builder
 @Entity
 @Table(name = "comment")
