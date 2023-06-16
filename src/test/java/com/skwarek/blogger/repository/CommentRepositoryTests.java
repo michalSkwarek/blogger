@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @DataJpaTest
-public class CommentRepositoryTest {
+public class CommentRepositoryTests {
 
     @Autowired
     private CommentRepository commentRepository;
