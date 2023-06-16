@@ -2,15 +2,15 @@ package com.skwarek.blogger.repository;
 
 import com.skwarek.blogger.EmbeddedDatabase;
 import com.skwarek.blogger.domain.Account;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 public class AccountRepositoryTests {
@@ -45,7 +45,7 @@ public class AccountRepositoryTests {
         Long accountId = 1L;
         Optional<Account> accountDb = accountRepository.findById(accountId);
 
-        AssertionsForClassTypes.assertThat(accountDb).isNotEmpty()
+        assertThat(accountDb).isNotEmpty()
                 .hasValue(EmbeddedDatabase.createAccountNo(1));
     }
 
@@ -54,7 +54,7 @@ public class AccountRepositoryTests {
         Long accountId = 0L;
         Optional<Account> accountDb = accountRepository.findById(accountId);
 
-        AssertionsForClassTypes.assertThat(accountDb).isEmpty();
+        assertThat(accountDb).isEmpty();
     }
 
     @Test

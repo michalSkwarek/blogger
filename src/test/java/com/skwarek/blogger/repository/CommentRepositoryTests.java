@@ -3,7 +3,6 @@ package com.skwarek.blogger.repository;
 import com.skwarek.blogger.EmbeddedDatabase;
 import com.skwarek.blogger.domain.Comment;
 import com.skwarek.blogger.domain.Post;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -11,7 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 public class CommentRepositoryTests {
@@ -48,7 +47,7 @@ public class CommentRepositoryTests {
         Long commentId = 1L;
         Optional<Comment> commentDb = commentRepository.findById(commentId);
 
-        AssertionsForClassTypes.assertThat(commentDb).isNotEmpty()
+        assertThat(commentDb).isNotEmpty()
                 .hasValue(EmbeddedDatabase.createCommentNo(1));
     }
 
@@ -57,7 +56,7 @@ public class CommentRepositoryTests {
         Long commentId = 0L;
         Optional<Comment> commentDb = commentRepository.findById(commentId);
 
-        AssertionsForClassTypes.assertThat(commentDb).isEmpty();
+        assertThat(commentDb).isEmpty();
     }
 
     @Test
