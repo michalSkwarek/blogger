@@ -1,0 +1,3 @@
+DELETE FROM comment;
+DELETE FROM post;
+DELETE FROM account;
