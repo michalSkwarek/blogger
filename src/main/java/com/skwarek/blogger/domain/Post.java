@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"account"})
+@EqualsAndHashCode(exclude = {"account", "comments"})
 @ToString(exclude = {"account"})
 @Builder
 @Entity
@@ -25,7 +25,7 @@ public class Post {
     @Column(name = "content")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     @JsonIgnore
     private Account account;
