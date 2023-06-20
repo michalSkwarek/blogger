@@ -24,7 +24,7 @@ public class PostController {
 
     @GetMapping(value = "/users/{userId}/posts")
     public ResponseEntity<List<Post>> getAllPostsByUserId(@PathVariable("userId") Long userId) {
-        List<Post> posts = postService.findAllByUserId(userId);
+        List<Post> posts = postService.findAllByAccountId(userId);
 
         if (!posts.isEmpty()) {
             return ResponseEntity.ok(posts);
@@ -43,7 +43,7 @@ public class PostController {
     @PostMapping(value = "/users/{userId}/posts/create")
     public ResponseEntity<Post> createPost2User(@PathVariable("userId") Long userId,
                                                 @RequestBody PostRequest postRequest) {
-        Post createdPost = postService.create2User(userId, postRequest);
+        Post createdPost = postService.create2Account(userId, postRequest);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .replacePath("/api/posts")

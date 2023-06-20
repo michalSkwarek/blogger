@@ -59,16 +59,16 @@ public class AccountRepositoryTests {
 
     @Test
     void shouldReturnTrueWhenAccountByIdExists() {
-        Long accountI = 1L;
-        boolean isAccountExist = accountRepository.existsById(accountI);
+        Long accountId = 1L;
+        boolean isAccountExist = accountRepository.existsById(accountId);
 
         assertThat(isAccountExist).isTrue();
     }
 
     @Test
     void shouldReturnFalseWhenAccountByIdDoesNotExist() {
-        Long accountI = 0L;
-        boolean isAccountExist = accountRepository.existsById(accountI);
+        Long accountId = 0L;
+        boolean isAccountExist = accountRepository.existsById(accountId);
 
         assertThat(isAccountExist).isFalse();
     }

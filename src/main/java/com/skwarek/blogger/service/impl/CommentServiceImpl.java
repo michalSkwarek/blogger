@@ -24,9 +24,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> findAllByPostId(Long postId) {
-        Post postDb = postService.findById(postId);
+        Post post = postService.findById(postId);
 
-        return commentRepository.findByPostId(postDb.getId());
+        return commentRepository.findByPostId(post.getId());
     }
 
     @Override
@@ -37,13 +37,13 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment create2Post(Long postId, CommentRequest commentRequest) {
-        Post postDb = postService.findById(postId);
+        Post post = postService.findById(postId);
 
         Comment newComment = Comment.builder()
                 .content(commentRequest.getContent())
                 .build();
 
-        postDb.addComment(newComment);
+        post.addComment(newComment);
 
         return commentRepository.save(newComment);
     }

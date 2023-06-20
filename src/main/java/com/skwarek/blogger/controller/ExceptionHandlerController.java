@@ -15,7 +15,7 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(NotFoundAccountException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> userNotFound() {
+    public ResponseEntity<String> accountNotFound() {
         String error = "This account doesn't exist.";
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
@@ -23,7 +23,7 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(DuplicateAccountException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> userExisting() {
+    public ResponseEntity<String> accountExisting() {
         String error = "This account already exists.";
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);

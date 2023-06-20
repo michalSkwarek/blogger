@@ -25,10 +25,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAllByUserId(Long userId) {
-        Account accountDb = accountService.findById(userId);
+    public List<Post> findAllByAccountId(Long accountId) {
+        Account account = accountService.findById(accountId);
 
-        return postRepository.findByAccountId(accountDb.getId());
+        return postRepository.findByAccountId(account.getId());
     }
 
     @Override
@@ -38,14 +38,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post create2User(Long userId, PostRequest postRequest) {
-        Account accountDb = accountService.findById(userId);
+    public Post create2Account(Long accountId, PostRequest postRequest) {
+        Account account = accountService.findById(accountId);
 
         Post newPost = Post.builder()
                 .content(postRequest.getContent())
                 .build();
 
-        accountDb.addPost(newPost);
+        account.addPost(newPost);
 
         return postRepository.save(newPost);
     }

@@ -29,14 +29,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findById(Long accountId) {
         return accountRepository.findById(accountId)
-                .orElseThrow(() -> new NotFoundAccountException("Not found user with id: " + accountId));
+                .orElseThrow(() -> new NotFoundAccountException("Not found account with id: " + accountId));
     }
 
     @Override
     public Account create(AccountRequest accountRequest) {
-        boolean isUserExist = accountRepository.existsByEmail(accountRequest.getEmail());
+        boolean isAccountExist = accountRepository.existsByEmail(accountRequest.getEmail());
 
-        if (!isUserExist) {
+        if (!isAccountExist) {
             Account newAccount = Account.builder()
                     .email(accountRequest.getEmail())
                     .password(accountRequest.getPassword())
@@ -44,31 +44,31 @@ public class AccountServiceImpl implements AccountService {
 
             return accountRepository.save(newAccount);
         } else {
-            throw new DuplicateAccountException("Duplicate user with email: " + accountRequest.getEmail());
+            throw new DuplicateAccountException("Duplicate account with email: " + accountRequest.getEmail());
         }
     }
 
     @Override
     public Account update(Long accountId, AccountRequest accountRequest) {
         Account oldAccount = accountRepository.findById(accountId)
-                .orElseThrow(() -> new NotFoundAccountException("Not found user with id: " + accountId));
+                .orElseThrow(() -> new NotFoundAccountException("Not found account with id: " + accountId));
 
-        boolean isUserExist = accountRepository.existsByEmail(accountRequest.getEmail());
+        boolean isAccountExist = accountRepository.existsByEmail(accountRequest.getEmail());
 
-        if (oldAccount.getEmail().equals(accountRequest.getEmail()) || !isUserExist) {
+        if (oldAccount.getEmail().equals(accountRequest.getEmail()) || !isAccountExist) {
             oldAccount.setEmail(accountRequest.getEmail());
             oldAccount.setPassword(accountRequest.getPassword());
 
             return accountRepository.save(oldAccount);
         } else {
-            throw new DuplicateAccountException("Duplicate user with name: " + accountRequest.getEmail());
+            throw new DuplicateAccountException("Duplicate account with name: " + accountRequest.getEmail());
         }
     }
 
     @Override
     public void deleteById(Long accountId) {
         Account accountDb = accountRepository.findById(accountId)
-                .orElseThrow(() -> new NotFoundAccountException("Not found user with id: " + accountId));
+                .orElseThrow(() -> new NotFoundAccountException("Not found account with id: " + accountId));
 
         List<Post> posts = new ArrayList<>(accountDb.getPosts());
         posts.forEach(accountDb::removePost);
