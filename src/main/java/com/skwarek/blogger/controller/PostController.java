@@ -22,9 +22,9 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping(value = "/users/{userId}/posts")
-    public ResponseEntity<List<Post>> getAllPostsByUserId(@PathVariable("userId") Long userId) {
-        List<Post> posts = postService.findAllByAccountId(userId);
+    @GetMapping(value = "/accounts/{accountId}/posts")
+    public ResponseEntity<List<Post>> getAllPostsByAccountId(@PathVariable("accountId") Long accountId) {
+        List<Post> posts = postService.findAllByAccountId(accountId);
 
         if (!posts.isEmpty()) {
             return ResponseEntity.ok(posts);
@@ -40,10 +40,10 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
-    @PostMapping(value = "/users/{userId}/posts/create")
-    public ResponseEntity<Post> createPost2User(@PathVariable("userId") Long userId,
-                                                @RequestBody PostRequest postRequest) {
-        Post createdPost = postService.create2Account(userId, postRequest);
+    @PostMapping(value = "/accounts/{accountId}/posts/create")
+    public ResponseEntity<Post> createPost2Account(@PathVariable("accountId") Long accountId,
+                                                   @RequestBody PostRequest postRequest) {
+        Post createdPost = postService.create2Account(accountId, postRequest);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .replacePath("/api/posts")
