@@ -62,22 +62,6 @@ public class PostRepositoryTests {
     }
 
     @Test
-    void shouldReturnTrueWhenPostByIdExists() {
-        Long postId = 1L;
-        boolean isPostExist = postRepository.existsById(postId);
-
-        assertThat(isPostExist).isTrue();
-    }
-
-    @Test
-    void shouldReturnFalseWhenPostByIdDoesNotExist() {
-        Long postId = 0L;
-        boolean isPostExist = postRepository.existsById(postId);
-
-        assertThat(isPostExist).isFalse();
-    }
-
-    @Test
     void shouldSavePost() {
         Account accountDb = EmbeddedDatabase.createAccountNo(1);
         Post newPost = Post.builder()

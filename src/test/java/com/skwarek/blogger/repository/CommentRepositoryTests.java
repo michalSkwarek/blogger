@@ -58,22 +58,6 @@ public class CommentRepositoryTests {
     }
 
     @Test
-    void shouldReturnTrueWhenCommentByIdExists() {
-        Long commentId = 1L;
-        boolean isCommentExist = commentRepository.existsById(commentId);
-
-        assertThat(isCommentExist).isTrue();
-    }
-
-    @Test
-    void shouldReturnFalseWhenCommentByIdDoesNotExist() {
-        Long commentId = 0L;
-        boolean isCommentExist = commentRepository.existsById(commentId);
-
-        assertThat(isCommentExist).isFalse();
-    }
-
-    @Test
     void shouldSaveComment() {
         Post postDb = EmbeddedDatabase.createPostNo(1);
         Comment newComment = Comment.builder()

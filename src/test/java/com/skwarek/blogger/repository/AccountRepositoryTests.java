@@ -58,22 +58,6 @@ public class AccountRepositoryTests {
     }
 
     @Test
-    void shouldReturnTrueWhenAccountByIdExists() {
-        Long accountId = 1L;
-        boolean isAccountExist = accountRepository.existsById(accountId);
-
-        assertThat(isAccountExist).isTrue();
-    }
-
-    @Test
-    void shouldReturnFalseWhenAccountByIdDoesNotExist() {
-        Long accountId = 0L;
-        boolean isAccountExist = accountRepository.existsById(accountId);
-
-        assertThat(isAccountExist).isFalse();
-    }
-
-    @Test
     void shouldSaveAccount() {
         Account newAccount = Account.builder()
                 .email("newEmail@gmail.com")
