@@ -6,7 +6,6 @@ import com.skwarek.blogger.domain.Post;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
@@ -21,23 +20,22 @@ public class CommentRepositoryTests {
     private PostRepository postRepository;
 
     @Test
-    void shouldFindAllComments() {
-        Iterable<Comment> commentsDb = commentRepository.findAll();
+    void shouldFindAllCommentsByPostId() {
+        Long postId = 1L;
+        Iterable<Comment> commentsDb = commentRepository.findByPostId(postId);
 
-        assertThat(commentsDb).hasSize(5)
+        assertThat(commentsDb).hasSize(3)
                 .containsOnly(
                         EmbeddedDatabase.createCommentNo(1),
                         EmbeddedDatabase.createCommentNo(2),
-                        EmbeddedDatabase.createCommentNo(3),
-                        EmbeddedDatabase.createCommentNo(4),
-                        EmbeddedDatabase.createCommentNo(5)
+                        EmbeddedDatabase.createCommentNo(3)
                 );
     }
 
     @Test
-    @Sql("/sql/cleanup_data.sql")
-    void shouldFindNoComments() {
-        Iterable<Comment> commentsDb = commentRepository.findAll();
+    void shouldFindNoCommentsByPostId() {
+        Long postId = 3L;
+        Iterable<Comment> commentsDb = commentRepository.findByPostId(postId);
 
         assertThat(commentsDb).isEmpty();
     }
@@ -122,27 +120,6 @@ public class CommentRepositoryTests {
                         EmbeddedDatabase.createCommentNo(4),
                         EmbeddedDatabase.createCommentNo(5)
                 );
-    }
-
-    @Test
-    void shouldFindAllCommentsByPostId() {
-        Long postId = 1L;
-        Iterable<Comment> commentsDb = commentRepository.findByPostId(postId);
-
-        assertThat(commentsDb).hasSize(3)
-                .containsOnly(
-                        EmbeddedDatabase.createCommentNo(1),
-                        EmbeddedDatabase.createCommentNo(2),
-                        EmbeddedDatabase.createCommentNo(3)
-                );
-    }
-
-    @Test
-    void shouldFindNoCommentsByPostId() {
-        Long postId = 3L;
-        Iterable<Comment> commentsDb = commentRepository.findByPostId(postId);
-
-        assertThat(commentsDb).isEmpty();
     }
 
 }

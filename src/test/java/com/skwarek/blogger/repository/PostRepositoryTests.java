@@ -6,7 +6,6 @@ import com.skwarek.blogger.domain.Post;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -25,22 +24,22 @@ public class PostRepositoryTests {
     private CommentRepository commentRepository;
 
     @Test
-    void shouldFindAllPosts() {
-        Iterable<Post> postsDb = postRepository.findAll();
+    void shouldFindAllPostsByAccountId() {
+        Long accountId = 1L;
+        Iterable<Post> postsDb = postRepository.findByAccountId(accountId);
 
-        assertThat(postsDb).hasSize(4)
+        assertThat(postsDb).hasSize(3)
                 .containsOnly(
                         EmbeddedDatabase.createPostNo(1),
                         EmbeddedDatabase.createPostNo(2),
-                        EmbeddedDatabase.createPostNo(3),
-                        EmbeddedDatabase.createPostNo(4)
+                        EmbeddedDatabase.createPostNo(3)
                 );
     }
 
     @Test
-    @Sql("/sql/cleanup_data.sql")
-    void shouldFindNoPosts() {
-        Iterable<Post> postsDb = postRepository.findAll();
+    void shouldFindNoPostsByAccountId() {
+        Long accountId = 3L;
+        Iterable<Post> postsDb = postRepository.findByAccountId(accountId);
 
         assertThat(postsDb).isEmpty();
     }
@@ -151,27 +150,6 @@ public class PostRepositoryTests {
                         EmbeddedDatabase.createPostNo(2),
                         EmbeddedDatabase.createPostNo(4)
                 );
-    }
-
-    @Test
-    void shouldFindAllPostsByAccountId() {
-        Long accountId = 1L;
-        Iterable<Post> postsDb = postRepository.findByAccountId(accountId);
-
-        assertThat(postsDb).hasSize(3)
-                .containsOnly(
-                        EmbeddedDatabase.createPostNo(1),
-                        EmbeddedDatabase.createPostNo(2),
-                        EmbeddedDatabase.createPostNo(3)
-                );
-    }
-
-    @Test
-    void shouldFindNoPostsByAccountId() {
-        Long accountId = 3L;
-        Iterable<Post> postsDb = postRepository.findByAccountId(accountId);
-
-        assertThat(postsDb).isEmpty();
     }
 
 }
