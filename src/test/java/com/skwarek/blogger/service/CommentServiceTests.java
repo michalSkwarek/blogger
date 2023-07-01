@@ -39,22 +39,18 @@ public class CommentServiceTests {
         List<Comment> commentsDb = List.of(
                 EmbeddedDatabase.createCommentNo(1),
                 EmbeddedDatabase.createCommentNo(2),
-                EmbeddedDatabase.createCommentNo(3),
-                EmbeddedDatabase.createCommentNo(4),
-                EmbeddedDatabase.createCommentNo(5)
+                EmbeddedDatabase.createCommentNo(3)
         );
 
         when(postService.findById(postId)).thenReturn(post);
         when(commentRepository.findByPostId(post.getId())).thenReturn(commentsDb);
         List<Comment> comments = commentService.findAllByPostId(postId);
 
-        assertThat(comments).asList().hasSize(5)
+        assertThat(comments).hasSize(3)
                 .containsOnly(
                         EmbeddedDatabase.createCommentNo(1),
                         EmbeddedDatabase.createCommentNo(2),
-                        EmbeddedDatabase.createCommentNo(3),
-                        EmbeddedDatabase.createCommentNo(4),
-                        EmbeddedDatabase.createCommentNo(5)
+                        EmbeddedDatabase.createCommentNo(3)
                 );
     }
 
@@ -68,7 +64,7 @@ public class CommentServiceTests {
         when(commentRepository.findByPostId(post.getId())).thenReturn(commentsDb);
         List<Comment> comments = commentService.findAllByPostId(postId);
 
-        assertThat(comments).asList().isEmpty();
+        assertThat(comments).isEmpty();
     }
 
     @Test
@@ -108,7 +104,7 @@ public class CommentServiceTests {
     void shouldCreateComment2Post() {
         Long postId = 1L;
         CommentRequest commentRequest = CommentRequest.builder()
-                .content("new comment to post1")
+                .content("new comment")
                 .build();
         Post post = EmbeddedDatabase.createPostNo(1);
 
@@ -119,7 +115,7 @@ public class CommentServiceTests {
         Comment createdComment = commentArgumentCaptor.getValue();
 
         assertThat(createdComment).hasFieldOrPropertyWithValue("id", null);
-        assertThat(createdComment).hasFieldOrPropertyWithValue("content", "new comment to post1");
+        assertThat(createdComment).hasFieldOrPropertyWithValue("content", "new comment");
         assertThat(createdComment).hasFieldOrPropertyWithValue("post", post);
     }
 
@@ -127,7 +123,7 @@ public class CommentServiceTests {
     void shouldNotCreateComment2PostWhenPostDoesNotExist() {
         Long postId = 0L;
         CommentRequest commentRequest = CommentRequest.builder()
-                .content("new comment to post1")
+                .content("new comment")
                 .build();
         String expectedMessage = "Not found post with id: " + postId;
 

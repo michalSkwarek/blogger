@@ -39,20 +39,18 @@ public class PostServiceTests {
         List<Post> postsDb = List.of(
                 EmbeddedDatabase.createPostNo(1),
                 EmbeddedDatabase.createPostNo(2),
-                EmbeddedDatabase.createPostNo(3),
-                EmbeddedDatabase.createPostNo(4)
+                EmbeddedDatabase.createPostNo(3)
         );
 
         when(accountService.findById(accountId)).thenReturn(account);
         when(postRepository.findByAccountId(account.getId())).thenReturn(postsDb);
         List<Post> posts = postService.findAllByAccountId(accountId);
 
-        assertThat(posts).asList().hasSize(4)
+        assertThat(posts).hasSize(3)
                 .containsOnly(
                         EmbeddedDatabase.createPostNo(1),
                         EmbeddedDatabase.createPostNo(2),
-                        EmbeddedDatabase.createPostNo(3),
-                        EmbeddedDatabase.createPostNo(4)
+                        EmbeddedDatabase.createPostNo(3)
                 );
     }
 
@@ -66,7 +64,7 @@ public class PostServiceTests {
         when(postRepository.findByAccountId(account.getId())).thenReturn(postsDb);
         List<Post> posts = postService.findAllByAccountId(accountId);
 
-        assertThat(posts).asList().isEmpty();
+        assertThat(posts).isEmpty();
     }
 
     @Test
@@ -106,7 +104,7 @@ public class PostServiceTests {
     void shouldCreatePost2Account() {
         Long accountId = 1L;
         PostRequest postRequest = PostRequest.builder()
-                .content("new post to account1")
+                .content("new post")
                 .build();
         Account account = EmbeddedDatabase.createAccountNo(1);
 
@@ -117,7 +115,7 @@ public class PostServiceTests {
         Post createdPost = postArgumentCaptor.getValue();
 
         assertThat(createdPost).hasFieldOrPropertyWithValue("id", null);
-        assertThat(createdPost).hasFieldOrPropertyWithValue("content", "new post to account1");
+        assertThat(createdPost).hasFieldOrPropertyWithValue("content", "new post");
         assertThat(createdPost).hasFieldOrPropertyWithValue("account", account);
         assertThat(createdPost).hasFieldOrPropertyWithValue("comments", Collections.emptyList());
     }
@@ -126,7 +124,7 @@ public class PostServiceTests {
     void shouldNotCreatePost2AccountWhenAccountDoesNotExist() {
         Long accountId = 0L;
         PostRequest postRequest = PostRequest.builder()
-                .content("new post to account1")
+                .content("new post")
                 .build();
         String expectedMessage = "Not found account with id: " + accountId;
 

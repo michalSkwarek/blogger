@@ -58,10 +58,10 @@ public class CommentRepositoryTests {
     }
 
     @Test
-    void shouldSaveComment() {
+    void shouldCreateComment() {
         Post postDb = EmbeddedDatabase.createPostNo(1);
         Comment newComment = Comment.builder()
-                .content("new comment to post1")
+                .content("new comment")
                 .build();
         postDb.addComment(newComment);
         Comment savedComment = commentRepository.save(newComment);
@@ -69,7 +69,7 @@ public class CommentRepositoryTests {
         assertThat(commentRepository.findAll()).hasSize(6);
         assertThat(postRepository.findAll()).hasSize(4);
         assertThat(savedComment).hasFieldOrPropertyWithValue("id", 6L);
-        assertThat(savedComment).hasFieldOrPropertyWithValue("content", "new comment to post1");
+        assertThat(savedComment).hasFieldOrPropertyWithValue("content", "new comment");
         assertThat(savedComment).hasFieldOrPropertyWithValue("post", postDb);
     }
 

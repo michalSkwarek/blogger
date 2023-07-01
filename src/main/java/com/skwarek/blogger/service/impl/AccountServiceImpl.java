@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
 
             return accountRepository.save(oldAccount);
         } else {
-            throw new DuplicateAccountException("Duplicate account with name: " + accountRequest.getEmail());
+            throw new DuplicateAccountException("Duplicate account with email: " + accountRequest.getEmail());
         }
     }
 

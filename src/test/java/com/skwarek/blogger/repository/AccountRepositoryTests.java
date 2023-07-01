@@ -58,7 +58,7 @@ public class AccountRepositoryTests {
     }
 
     @Test
-    void shouldSaveAccount() {
+    void shouldCreateAccount() {
         Account newAccount = Account.builder()
                 .email("newEmail@gmail.com")
                 .password("newPassword")

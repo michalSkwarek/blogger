@@ -48,11 +48,11 @@ Hello
 GET     / /hello
 --------------------------------------------------
 {
-    "email": "newEmail",
+    "email": "newEmail@gmail.com",
     "password": "newPassword"
 }
 {
-    "email": "updatedEmail",
+    "email": "updatedEmail@gmail.com",
     "password": "updatedPassword"
 }
 Accounts
@@ -63,10 +63,10 @@ PUT     /accounts/{id}                 NotFoundAccount  DuplicateAccount
 DELETE  /accounts/{id}                 NotFoundAccount
 --------------------------------------------------
 {
-    "content": "new post content"
+    "content": "new post"
 }
 {
-    "content": "updated post content"
+    "content": "updated post"
 }
 Posts
 GET	    /accounts/{id}/posts                           [NotFoundAccount]
@@ -76,10 +76,10 @@ PUT	    /posts/{id}                 NotFoundPost
 DELETE	/posts/{id}                 NotFoundPost
 --------------------------------------------------
 {
-    "content": "new comment content"
+    "content": "new comment"
 }
 {
-    "content": "updated comment content"
+    "content": "updated comment"
 }
 Comments
 GET	    /posts/{id}/comments                            [NotFoundPost]

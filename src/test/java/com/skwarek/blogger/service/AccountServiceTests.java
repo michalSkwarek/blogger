@@ -40,7 +40,7 @@ public class AccountServiceTests {
         when(accountRepository.findAll()).thenReturn(accountsDb);
         List<Account> accounts = accountService.findAll();
 
-        assertThat(accounts).asList().hasSize(3)
+        assertThat(accounts).hasSize(3)
                 .containsOnly(
                         EmbeddedDatabase.createAccountNo(1),
                         EmbeddedDatabase.createAccountNo(2),
@@ -55,7 +55,7 @@ public class AccountServiceTests {
         when(accountRepository.findAll()).thenReturn(accountsDb);
         List<Account> accounts = accountService.findAll();
 
-        assertThat(accounts).asList().isEmpty();
+        assertThat(accounts).isEmpty();
     }
 
     @Test
@@ -102,7 +102,7 @@ public class AccountServiceTests {
     @Test
     void shouldNotCreateAccountWhenAccountAlreadyExists() {
         AccountRequest accountRequest = AccountRequest.builder()
-                .email("newEmail@gmail.com")
+                .email("a1@gmail.com")
                 .password("newPassword")
                 .build();
         String expectedMessage = "Duplicate account with email: " + accountRequest.getEmail();
@@ -159,7 +159,7 @@ public class AccountServiceTests {
                 .password("updated111")
                 .build();
         Optional<Account> oldAccount = Optional.of(EmbeddedDatabase.createAccountNo(1));
-        String expectedMessage = "Duplicate account with name: " + accountRequest.getEmail();
+        String expectedMessage = "Duplicate account with email: " + accountRequest.getEmail();
 
         when(accountRepository.findById(accountId)).thenReturn(oldAccount);
         when(accountRepository.existsByEmail(accountRequest.getEmail())).thenReturn(true);

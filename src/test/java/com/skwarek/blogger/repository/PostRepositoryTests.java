@@ -12,7 +12,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @DataJpaTest
 public class PostRepositoryTests {
 
@@ -62,10 +61,10 @@ public class PostRepositoryTests {
     }
 
     @Test
-    void shouldSavePost() {
+    void shouldCreatePost() {
         Account accountDb = EmbeddedDatabase.createAccountNo(1);
         Post newPost = Post.builder()
-                .content("new post to account1")
+                .content("new post")
                 .build();
         accountDb.addPost(newPost);
         Post savedPost = postRepository.save(newPost);
@@ -74,7 +73,7 @@ public class PostRepositoryTests {
         assertThat(accountRepository.findAll()).hasSize(3);
         assertThat(commentRepository.findAll()).hasSize(5);
         assertThat(savedPost).hasFieldOrPropertyWithValue("id", 5L);
-        assertThat(savedPost).hasFieldOrPropertyWithValue("content", "new post to account1");
+        assertThat(savedPost).hasFieldOrPropertyWithValue("content", "new post");
         assertThat(savedPost).hasFieldOrPropertyWithValue("account", accountDb);
         assertThat(savedPost).hasFieldOrProperty("comments");
         assertThat(savedPost.getComments()).containsExactlyElementsOf(Collections.emptyList());
